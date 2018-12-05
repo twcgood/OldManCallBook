@@ -4,36 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activitys.MainActivity">
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Hello World!"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
-
-    <LinearLayout
-        android:id="@+id/l1"
+    <TextView
+        android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:background="#409fff"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:background="@android:color/holo_green_dark"
+        android:gravity="center"
+        android:textColor="@android:color/background_dark"
+        android:textSize="50sp"
+        android:textStyle="bold" />
 
-    </LinearLayout>
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:background="#000000"
-        app:layout_constraintVertical_weight="1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/l1">
+        android:background="@android:color/holo_orange_dark"
+        android:padding="35dp"
+        android:src="@drawable/email"
+        app:layout_constraintBottom_toTopOf="@id/phone"
+        app:layout_constraintTop_toBottomOf="@id/time" />
 
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/holo_purple"
+        android:padding="40dp"
+        android:src="@drawable/phone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/email" />
+
 
 </android.support.constraint.ConstraintLayout>
