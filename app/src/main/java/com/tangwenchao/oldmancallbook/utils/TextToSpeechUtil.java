@@ -57,7 +57,7 @@ public class TextToSpeechUtil implements TextToSpeech.OnInitListener {
                 return;
             }
             mTextToSpeech.setPitch(1f);
-            mTextToSpeech.setSpeechRate(0.6f);
+            mTextToSpeech.setSpeechRate(0.8f);
         }
     }
 
