@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.tangwenchao.oldmancallbook.R;
@@ -42,8 +41,6 @@ public class DeleteSMSDialog extends Dialog {
         setContentView(view);
         TextView cancel = view.findViewById(R.id.cancel);
         final TextView delete = view.findViewById(R.id.delete);
-        final EditText name = view.findViewById(R.id.name);
-        final EditText phoneNumber = view.findViewById(R.id.phoneNumber);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,8 +72,10 @@ public class DeleteSMSDialog extends Dialog {
             do {
                 long threadId = cur.getLong(1);
                 cr.delete(Uri.parse("content://sms/conversations/" + threadId), null, null);
-                dismiss();
             } while (cur.moveToNext());
+        } else {
+            cur.close();
+            dismiss();
         }
     }
 }

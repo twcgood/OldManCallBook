@@ -51,6 +51,7 @@ public class PhoneListActivityPresenterImpl implements PhoneListActivityContract
         if (cursor.getCount() > 0) {
             mView.get().setPhoneList(list);
         }
+        cursor.close();
     }
 
     public void callPhone(PhoneListAdapter adapter) {
