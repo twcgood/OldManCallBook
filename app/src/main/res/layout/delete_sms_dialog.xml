@@ -12,7 +12,7 @@
         android:maxLength="15"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="是否确认删除短信？"
+        android:text="是否确认删除全部短信？"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="35sp"
         android:gravity="center"/>
