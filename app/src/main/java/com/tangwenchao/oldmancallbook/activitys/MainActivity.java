@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.tangwenchao.oldmancallbook.R;
 import com.tangwenchao.oldmancallbook.base.BaseActivity;
 import com.tangwenchao.oldmancallbook.contracts.MainActivityContract;
+import com.tangwenchao.oldmancallbook.dialogs.DeleteSMSDialog;
 import com.tangwenchao.oldmancallbook.presenterImpls.MainActivityPresenterImpl;
 import com.tangwenchao.oldmancallbook.utils.LogUtil;
 import com.tangwenchao.oldmancallbook.utils.PermissionsUtil;
@@ -23,7 +24,9 @@ public class MainActivity extends BaseActivity implements MainActivityContract.M
     private MainActivityContract.MainActivityPresenter mMainActivityPresenter;
     private MainActivityPresenterImpl mMainActivityPresenterImpl;
     private TextView mTime;
+    private TextView mWeek;
     private ImageView mPhone;
+    private ImageView mEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +41,20 @@ public class MainActivity extends BaseActivity implements MainActivityContract.M
     @Override
     public void initView() {
         mTime = findViewById(R.id.time);
+        mWeek = findViewById(R.id.week);
         mPhone = findViewById(R.id.phone);
+        mEmail = findViewById(R.id.email);
     }
 
     @Override
     public void initData() {
         PermissionsUtil.requestPerms(this);
         mPhone.setOnClickListener(this);
+        mEmail.setOnClickListener(this);
         mMainActivityPresenterImpl = new MainActivityPresenterImpl(this, this);
         setDate();
+        mTime.setOnClickListener(this);
+        mWeek.setOnClickListener(this);
     }
 
     @Override
@@ -61,7 +69,7 @@ public class MainActivity extends BaseActivity implements MainActivityContract.M
 
     @Override
     public void setDate() {
-        TimeThread timeThread = new TimeThread(mTime);
+        TimeThread timeThread = new TimeThread(mTime, mWeek);
         timeThread.start();
     }
 
@@ -72,6 +80,15 @@ public class MainActivity extends BaseActivity implements MainActivityContract.M
                 LogUtil.i(TAG, "打开电话列表");
                 Intent intent = new Intent(this, PhoneListActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.email:
+                LogUtil.i(TAG, "打开短信");
+                DeleteSMSDialog deleteSMSDialog = new DeleteSMSDialog(this);
+                deleteSMSDialog.show();
+                break;
+            case R.id.time:
+            case R.id.week:
+                TextToSpeechUtil.getInstance().speak(mWeek.getText().toString().trim() + " " + mTime.getText().toString().trim());
                 break;
         }
     }

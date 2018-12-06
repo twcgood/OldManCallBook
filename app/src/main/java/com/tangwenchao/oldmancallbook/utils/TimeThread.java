@@ -16,12 +16,14 @@ import java.util.Date;
 public class TimeThread extends Thread {
 
     private static final int msgKey = 0x1;
-    private TextView tv;
+    private TextView mTime;
+    private TextView mWeek;
     private TimeThreadHandler mTimeThreadHandler;
 
-    public TimeThread(TextView tv) {
-        this.tv = tv;
-        mTimeThreadHandler = new TimeThreadHandler(tv);
+    public TimeThread(TextView time, TextView week) {
+        this.mTime = time;
+        this.mWeek = week;
+        mTimeThreadHandler = new TimeThreadHandler(time, week);
     }
 
     @Override
@@ -48,19 +50,19 @@ public class TimeThread extends Thread {
         int i = cal.get(Calendar.DAY_OF_WEEK);
         switch (i) {
             case 1:
-                return "周日";
+                return "星期日";
             case 2:
-                return "周一";
+                return "星期一";
             case 3:
-                return "周二";
+                return "星期二";
             case 4:
-                return "周三";
+                return "星期三";
             case 5:
-                return "周四";
+                return "星期四";
             case 6:
-                return "周五";
+                return "星期五";
             case 7:
-                return "周六";
+                return "星期六";
             default:
                 return "";
         }
@@ -68,10 +70,12 @@ public class TimeThread extends Thread {
 
     static class TimeThreadHandler extends Handler {
 
-        private TextView tv;
+        private TextView mTime;
+        private TextView mWeek;
 
-        public TimeThreadHandler(TextView tv) {
-            this.tv = tv;
+        public TimeThreadHandler(TextView time, TextView week) {
+            this.mTime = time;
+            this.mWeek = week;
         }
 
         @Override
@@ -83,7 +87,8 @@ public class TimeThread extends Thread {
                     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
                     String date = sdf.format(new Date());
 
-                    tv.setText(date + " " + getWeek());
+                    mTime.setText(date);
+                    mWeek.setText(getWeek());
 
                     break;
 
