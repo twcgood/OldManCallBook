@@ -12,6 +12,7 @@ import com.tangwenchao.oldmancallbook.contracts.MainActivityContract;
 import com.tangwenchao.oldmancallbook.presenterImpls.MainActivityPresenterImpl;
 import com.tangwenchao.oldmancallbook.utils.LogUtil;
 import com.tangwenchao.oldmancallbook.utils.PermissionsUtil;
+import com.tangwenchao.oldmancallbook.utils.TextToSpeechUtil;
 import com.tangwenchao.oldmancallbook.utils.TimeThread;
 
 import pub.devrel.easypermissions.EasyPermissions;
@@ -69,7 +70,7 @@ public class MainActivity extends BaseActivity implements MainActivityContract.M
         switch (v.getId()) {
             case R.id.phone:
                 LogUtil.i(TAG, "打开电话列表");
-                Intent intent = new Intent(MainActivity.this, PhoneListActivity.class);
+                Intent intent = new Intent(this, PhoneListActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -81,8 +82,17 @@ public class MainActivity extends BaseActivity implements MainActivityContract.M
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
+    /**
+     * 重写返回键操作 防止老人退出程序
+     */
     @Override
     public void onBackPressed() {
         return;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        TextToSpeechUtil.getInstance().clear();
     }
 }

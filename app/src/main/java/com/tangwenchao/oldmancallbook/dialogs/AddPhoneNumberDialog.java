@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tangwenchao.oldmancallbook.R;
+import com.tangwenchao.oldmancallbook.utils.TextToSpeechUtil;
 
 /**
  * @创建者 tangwenchao
@@ -102,6 +103,8 @@ public class AddPhoneNumberDialog extends Dialog {
         ctx.getContentResolver().insert(ContactsContract.Data.CONTENT_URI, values);
 
         Toast.makeText(ctx, "联系人数据添加成功", Toast.LENGTH_SHORT).show();
+
+        TextToSpeechUtil.getInstance().speak("联系人" + name + "添加成功");
 
         dismiss();
     }

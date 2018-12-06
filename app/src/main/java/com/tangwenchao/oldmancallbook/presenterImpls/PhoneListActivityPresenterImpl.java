@@ -1,9 +1,13 @@
 package com.tangwenchao.oldmancallbook.presenterImpls;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.tangwenchao.oldmancallbook.activitys.PhoneListActivity;
+import com.tangwenchao.oldmancallbook.adapters.PhoneListAdapter;
 import com.tangwenchao.oldmancallbook.contracts.PhoneListActivityContract;
 import com.tangwenchao.oldmancallbook.utils.LogUtil;
 import com.tangwenchao.oldmancallbook.utils.PhoneUtil;
@@ -18,7 +22,7 @@ import java.util.ArrayList;
  */
 public class PhoneListActivityPresenterImpl implements PhoneListActivityContract.PhoneListActivityPresenter {
 
-    private static final String TAG = "PhoneListActivityPresenterImpl";
+    private static final String TAG = "PLAPresenterImpl";
     protected WeakReference<PhoneListActivityContract.PhoneListActivityView> mView;
     protected WeakReference<PhoneListActivity> mPlac;
 
@@ -46,6 +50,20 @@ public class PhoneListActivityPresenterImpl implements PhoneListActivityContract
         LogUtil.i(TAG, "cursor count " + cursor.getCount());
         if (cursor.getCount() > 0) {
             mView.get().setPhoneList(list);
+        }
+    }
+
+    public void callPhone(PhoneListAdapter adapter) {
+        int position = adapter.getPosition();
+        if (position != -1) {
+            ArrayList<String> phoneList = adapter.getPhoneList();
+            String s = phoneList.get(position);
+            String[] split = s.split(" ");
+            Log.i(TAG, "电话号码是：" + split[1]);
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            Uri data = Uri.parse("tel:" + split[1]);
+            intent.setData(data);
+            mPlac.get().startActivity(intent);
         }
     }
 }
