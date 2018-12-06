@@ -1,9 +1,12 @@
 package com.tangwenchao.oldmancallbook.activitys;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +15,7 @@ import com.tangwenchao.oldmancallbook.R;
 import com.tangwenchao.oldmancallbook.adapters.PhoneListAdapter;
 import com.tangwenchao.oldmancallbook.base.BaseActivity;
 import com.tangwenchao.oldmancallbook.contracts.PhoneListActivityContract;
+import com.tangwenchao.oldmancallbook.dialogs.AddPhoneNumberDialog;
 import com.tangwenchao.oldmancallbook.interfaces.Delegte;
 import com.tangwenchao.oldmancallbook.presenterImpls.PhoneListActivityPresenterImpl;
 import com.tangwenchao.oldmancallbook.utils.LogUtil;
@@ -34,6 +38,7 @@ public class PhoneListActivity extends BaseActivity implements PhoneListActivity
     private TextView mBack;
     private LinearLayoutManager mLinearLayoutManager;
     private TextToSpeech mTextToSpeech;
+    private TextView mAddPhoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +55,7 @@ public class PhoneListActivity extends BaseActivity implements PhoneListActivity
         mRcPhoneList = findViewById(R.id.phoneList);
         mCall = findViewById(R.id.call);
         mBack = findViewById(R.id.back);
-
+        mAddPhoneNumber = findViewById(R.id.addPhoneNumber);
     }
 
     @Override
@@ -60,6 +65,7 @@ public class PhoneListActivity extends BaseActivity implements PhoneListActivity
         mPhoneListActivityPresenterImpl.getPhoneList();
         mCall.setOnClickListener(this);
         mBack.setOnClickListener(this);
+        mAddPhoneNumber.setOnClickListener(this);
     }
 
     @Override
@@ -91,11 +97,36 @@ public class PhoneListActivity extends BaseActivity implements PhoneListActivity
         switch (v.getId()) {
             case R.id.call:
                 LogUtil.i(TAG, "拨打电话");
+                callPhone();
                 break;
             case R.id.back:
                 LogUtil.i(TAG, "返回上一层");
                 finish();
                 break;
+            case R.id.addPhoneNumber:
+                LogUtil.i(TAG, "添加联系人");
+                addPhoneNumber();
+                break;
+        }
+    }
+
+    private void addPhoneNumber() {
+        AddPhoneNumberDialog addPhoneNumberDialog = new AddPhoneNumberDialog(this);
+        addPhoneNumberDialog.show();
+    }
+
+    private void callPhone() {
+        PhoneListAdapter adapter = (PhoneListAdapter) mRcPhoneList.getAdapter();
+        int position = adapter.getPosition();
+        if (position != -1) {
+            ArrayList<String> phoneList = adapter.getPhoneList();
+            String s = phoneList.get(position);
+            String[] split = s.split(" ");
+            Log.i(TAG, "电话号码是：" + split[1]);
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            Uri data = Uri.parse("tel:" + split[1]);
+            intent.setData(data);
+            startActivity(intent);
         }
     }
 

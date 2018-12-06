@@ -25,6 +25,20 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/addPhoneNumber" />
+
+    <TextView
+        android:id="@+id/addPhoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="@android:color/holo_blue_dark"
+        android:gravity="center"
+        android:text="添加"
+        android:textColor="@android:color/background_dark"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/back"
         app:layout_constraintRight_toLeftOf="@id/call" />
 
     <TextView
@@ -33,12 +47,12 @@
         android:layout_height="80dp"
         android:background="@android:color/holo_purple"
         android:gravity="center"
-        android:text="拨打电话"
+        android:text="拨打"
         android:textColor="@android:color/background_dark"
         android:textSize="38sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/back"
+        app:layout_constraintLeft_toRightOf="@id/addPhoneNumber"
         app:layout_constraintRight_toRightOf="parent" />
 
 

@@ -85,6 +85,14 @@ public class PhoneListAdapter extends RecyclerView.Adapter<PhoneListAdapter.Phon
         return phoneList.size();
     }
 
+    public int getPosition() {
+        return mPosition;
+    }
+
+    public ArrayList<String> getPhoneList() {
+        return phoneList;
+    }
+
     static class PhoneListViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tv;

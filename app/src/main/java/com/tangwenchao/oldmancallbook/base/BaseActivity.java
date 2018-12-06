@@ -56,7 +56,7 @@ public abstract class BaseActivity extends Activity {
      * 返回当时activity名字
      * @return
      */
-    private String getTAG() {
+    public String getTAG() {
         return  this.TAG;
     }
 

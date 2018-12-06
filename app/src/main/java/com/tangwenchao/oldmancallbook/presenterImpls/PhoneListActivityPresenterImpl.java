@@ -23,8 +23,8 @@ public class PhoneListActivityPresenterImpl implements PhoneListActivityContract
     protected WeakReference<PhoneListActivity> mPlac;
 
     public PhoneListActivityPresenterImpl(PhoneListActivityContract.PhoneListActivityView view, PhoneListActivity plac) {
-        mView = new WeakReference<PhoneListActivityContract.PhoneListActivityView>(view);
-        mPlac = new WeakReference<PhoneListActivity>(plac);
+        mView = new WeakReference<>(view);
+        mPlac = new WeakReference<>(plac);
         view.setPresenter(this);
     }
 
